@@ -1,0 +1,1 @@
+Static content is served under /static
