@@ -51,7 +51,7 @@ subprojects {
 
 task help  {
      doLast {
-       println "Wellcome to NTT_GrantePrivacy Use hello task to list all the sub projects"
+       println "Wellcome to TestProject Use hello task to list all the sub projects"
 	   println "Use the build task to build the project"
 	   println " hello \t-> List all the subprojects"
 	   println " jettyRun\t-> run the admin console"

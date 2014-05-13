@@ -11,8 +11,8 @@ version = new Version(major: 1, minor:0, revision: 0)
 
 
 ext {
-    fullName = 'NTT_GrantePrivacy Product Commons'
-    fullDescription = 'Gestione Garante Profacy NTT Finance Italia'
+    fullName = 'Demo Commons'
+    fullDescription = ''
 }
 
 repositories {
@@ -30,7 +30,7 @@ javadoc {
 
     options.addStringOption('XDignore.symbol.file', '-quiet')
     options.author = true
-    options.bottom = "<i>Copyright &#169; 2013 - ${Calendar.instance[Calendar.YEAR]} NTT DATA. All Rights Reserved.</i>"
+    options.bottom = "<i>Copyright &#169; 2013 - ${Calendar.instance[Calendar.YEAR]} </i>"
     options.use = true
     options.version = true
     options.windowTitle = 'GP COMMONS'
@@ -39,7 +39,7 @@ javadoc {
 jar {
     manifest.attributes('Built-By': System.properties['user.name'],
                         'Bundle-Name': fullName,
-                        'Bundle-Vendor': 'NTT GP TEAM',
+                        'Bundle-Vendor': 'Test TEAM',
                         'Bundle-Description': fullDescription,
                         'Bundle-DocURL': '')
 }

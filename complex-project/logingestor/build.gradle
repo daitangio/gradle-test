@@ -11,8 +11,8 @@ version = new Version(major: 1, minor:0, revision: 1)
 
 
 ext {
-    fullName = 'NTT_GrantePrivacy Product'
-    fullDescription = 'Gestione Garante Profacy NTT Finance Italia'
+    fullName = 'NTT_Demo Product'
+    fullDescription = ''
 }
 
 repositories {

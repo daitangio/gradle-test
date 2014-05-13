@@ -7,3 +7,5 @@ build
 .classpath
 .settings
 .gradle
+# This settings seems bad to put under version control
+gradle-app.setting
