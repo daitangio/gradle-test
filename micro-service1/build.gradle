@@ -1,3 +1,9 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'eclipse'
+
+defaultTasks 'tasks'
 
 buildscript {
     repositories {
@@ -9,12 +15,34 @@ buildscript {
     }
 }
 
-apply plugin: 'scala'
-// apply plugin: 'spring-boot'
+
+eclipse {
+	pathVariables 'GRADLE_HOME': file('/home/jj/src/gradle-1.12')
+
+	//customizing the classes output directory:
+	defaultOutputDir = file('build-eclipse')
+
+	//default settings for downloading sources and Javadoc:
+	downloadSources = true
+	downloadJavadoc = false
+}
+
+
+
+// Please see http://projects.spring.io/spring-boot/#quick-start
+apply plugin: 'spring-boot'
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE")    
 
-    compile "org.springframework.boot:spring-boot-starter-web"
+    // Actuator e remote shell give features such as metrics and monitoring
+    // and ssh support
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    // Mmmm remote shell give us errors, evicted right now
+    //  compile "org.springframework.boot:spring-boot-starter-remote-shell"
+
+    // jetty ?  Anyway it seems to import tomcat too so be careful
+    //compile "org.springframework.boot:spring-boot-starter-jetty"
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
@@ -29,3 +57,6 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.10'
 }
 
+allprojects {
+	task hello << { task -> println "Project: $task.project.name" }
+}
