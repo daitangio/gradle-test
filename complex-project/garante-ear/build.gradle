@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'eclipse'
+apply plugin: 'ear'
+
+
+
+repositories { mavenCentral() }
+dependencies {
+	// following dependencies will become the ear modules and placed in the ear root
+	// GG Aggiunto parametro configuration perché senno l'ear impacchetta gli war come jar
+	deploy project(path: ':adminconsole', configuration: 'archives') 	
+	//	following dependencies will become ear libs and placed in a dir configured via libDirName 
+	// earlib group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
+}
+ear {
+	appDirName 'src/main/application' // use application metadata found in this folder
+	libDirName 'APP-INF/lib' // put dependency libraries into APP-INF/lib inside the generated // also modify the generated deployment descriptor accordingly
+	deploymentDescriptor { // custom entries for application.xml:
+		applicationName = "garante-privacy-ear"
+		initializeInOrder = true
+		displayName = "Test Ear" // defaults to project.name
+		description = "My customized EAR for GaranteAdmin" // defaults to project.description
+		securityRole "admin"
+		securityRole "superadmin"
+		withXml { 
+			provider -> // add a custom node to the XML
+				provider.asNode().appendNode("data-source", "my/data/source")
+		}
+	}
+}

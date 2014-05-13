@@ -1,0 +1,73 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'eclipse'
+
+
+defaultTasks 'build'
+
+group='com.ntt'
+version = new Version(major: 1, minor:0, revision: 0)
+
+
+ext {
+    fullName = 'NTT_GrantePrivacy Product Commons'
+    fullDescription = 'Gestione Garante Profacy NTT Finance Italia'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {	
+	//compile		'com.lmax:disruptor:3.0.1'
+	compile		'log4j:log4j:1.2.17'	
+}
+
+
+javadoc {
+    title = '<h1>Garante Privacy Commons</h1>'
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2013 - ${Calendar.instance[Calendar.YEAR]} NTT DATA. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.windowTitle = 'GP COMMONS'
+}
+
+jar {
+    manifest.attributes('Built-By': System.properties['user.name'],
+                        'Bundle-Name': fullName,
+                        'Bundle-Vendor': 'NTT GP TEAM',
+                        'Bundle-Description': fullDescription,
+                        'Bundle-DocURL': '')
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+
+
+class Version {
+	int major, minor = 0, revision = 0
+	boolean snapshot
+	String stage
+
+	String toString() {
+		"$major.$minor.$revision${stage ? '.' + stage : ''}${snapshot ? '-SNAPSHOT' : ''}"
+	}
+}
+
+

@@ -1,0 +1,24 @@
+apply plugin: 'eclipse'
+apply plugin: 'war'
+
+// Definisce task come jettyRun & jettyStop
+apply plugin: 'jetty'
+
+defaultTasks 'build'
+
+jettyRun.httpPort=6001
+
+
+dependencies {
+	compile project(':gp-commons')
+	compile group: 'org.springframework', name: 'spring-web', version: '3.2.0.RELEASE'
+	
+	/*
+	 * spring-security-acl-3.1.2.RELEASE.jar
+	  spring-security-config-3.1.2.RELEASE.jar
+	  spring-security-core-3.1.2.RELEASE.jar
+	  spring-security-taglibs-3.1.2.RELEASE.jar
+	  spring-security-web-3.1.2.RELEASE.jar
+	 */
+	
+}

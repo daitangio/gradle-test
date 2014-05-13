@@ -1,0 +1,117 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+// apply plugin: 'signing'
+apply plugin: 'eclipse'
+// apply plugin: 'checkstyle'
+
+defaultTasks 'build'
+
+group='com.ntt'
+version = new Version(major: 1, minor:0, revision: 1)
+
+
+ext {
+    fullName = 'NTT_GrantePrivacy Product'
+    fullDescription = 'Gestione Garante Profacy NTT Finance Italia'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {	
+	compile		'com.lmax:disruptor:3.0.1'
+	compile		'log4j:log4j:1.2.17'
+	
+	compile     'org.mybatis:mybatis:3.1.0'	
+	compile 	'org.mybatis:mybatis-spring:1.2.0'
+	compile 	'org.quartz-scheduler:quartz:2.1.6'
+
+	
+	testCompile 'junit:junit:4.5', 'org.jmock:jmock-junit4:2.5.1', 'org.jmock:jmock-legacy:2.5.1'
+	
+	compile project(':gp-commons')
+}
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+
+/**
+javadoc {
+    title = '<h1>Disruptor</h1>'
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.windowTitle = 'Disruptor API'
+}
+
+jar {
+    manifest.attributes('Built-By': System.properties['user.name'],
+                        'Bundle-Name': fullName,
+                        'Bundle-Vendor': teamName,
+                        'Bundle-Description': fullDescription,
+                        'Bundle-DocURL': siteUrl)
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+def projectPom = {
+    name = fullName
+    description = fullDescription
+    url = siteUrl
+
+    scm {
+        url = "scm:$sourceUrl"
+        connection = "scm:$sourceUrl"
+    }
+
+    licenses {
+        license {
+            name = 'The Apache Software License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution = 'repo'
+        }
+    }
+
+    developers {
+        developer {
+            id = 'team'
+            name = teamName
+            email = 'lmax-disruptor@googlegroups.com'
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller.pom.project(projectPom)
+}
+***/
+
+
+class Version {
+    int major, minor = 0, revision = 0
+    boolean snapshot
+    String stage
+
+    String toString() {
+        "$major.$minor.$revision${stage ? '.' + stage : ''}${snapshot ? '-SNAPSHOT' : ''}"
+    }
+}
+
+
