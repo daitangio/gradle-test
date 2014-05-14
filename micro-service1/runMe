@@ -1,0 +1,4 @@
+#!/bin/bash
+echo Please build the class with gradle build or with the ide plugin
+echo The Spring Loaded willautoload the plugin
+gradle --daemon --parallel bootRun

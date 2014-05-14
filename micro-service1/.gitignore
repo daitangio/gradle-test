@@ -2,3 +2,8 @@ build
 .gradle
 *~
 /bin
+gradle-app.setting
+micro-service1.log
+.classpath
+.project
+.settings
