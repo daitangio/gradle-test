@@ -5,6 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.event.ApplicationPreparedEvent;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @EnableAutoConfiguration()
+@ComponentScan
 public class HelloWorld {
 
 	@Value("${app.version:UNKNOWN}")
@@ -39,13 +45,21 @@ public class HelloWorld {
 
 	
 	
-	
     public void setVersion(String version) {
 		this.version = version;
 	}
 
-	public static void main(String[] args) throws Exception {
-    	   	
-        SpringApplication.run(HelloWorld.class, args);
+	public static void main(String[] args) throws Exception {   
+//		ApplicationListener<ApplicationPreparedEvent> sayHello = new ApplicationListener<ApplicationPreparedEvent>() {
+//
+//			@Override
+//			public void onApplicationEvent(ApplicationPreparedEvent event) {
+//				System.err.println("\n\n\t DEMO READY\n\n");				
+//			}
+//		};
+		SpringApplicationBuilder ab=new SpringApplicationBuilder(HelloWorld.class);
+//		ab.application().addListeners(sayHello);
+    	ab.run(args);
+    
     }
 }
