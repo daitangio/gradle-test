@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/micro-service1/src/main/java/com/gioorgi/microservice/HelloWorld.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.gioorgi.microservice.HelloWorld"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="micro-service1"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dspring.liveBeansView.mbeanDomain&#10;-Dcom.sun.management.jmxremote&#10;-Dcom.sun.management.jmxremote.port=62995&#10;-Dcom.sun.management.jmxremote.authenticate=false&#10;-Dcom.sun.management.jmxremote.ssl=false"/>
+</launchConfiguration>

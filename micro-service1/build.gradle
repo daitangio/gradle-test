@@ -1,7 +1,7 @@
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
-apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+// apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 defaultTasks 'tasks'
 
@@ -11,18 +11,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-		
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC5")
 
-        // Enable spring loaded stuff
-		// see https://github.com/berlin-ab/springbootblog/blob/blog/hot-reload/
-		classpath("org.springframework:springloaded:1+")        
+		// Enable spring loaded stuff
+		// see https://github.com/berlin-ab/springbootblog/tree/blog/hot-reload
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1+")
+		classpath("org.springframework:springloaded:1+")
+		
 
         
     }
 }
 
-
+/*
 eclipse {
 	pathVariables 'GRADLE_HOME': file('/home/jj/src/gradle-1.12')
 
@@ -33,47 +33,22 @@ eclipse {
 	downloadSources = true
 	downloadJavadoc = false
 }
-
+*/
 
 
 // Please see http://projects.spring.io/spring-boot/#quick-start
-apply plugin: 'spring-boot'
 
-// IMPORTANT: specify the same dependency because otherwise you got incomaptible versions
-/** ADD
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.hsqldb</groupId>
-    <artifactId>hsqldb</artifactId>
-    <scope>runtime</scope>
-</dependency>
-**/
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE")    
-
-    // Actuator e remote shell give features such as metrics and monitoring
-    // and ssh support
-    compile "org.springframework.boot:spring-boot-starter-actuator:1.0.2.RELEASE"
-
-    
-    compile "org.springframework.boot:spring-boot-starter-remote-shell:1.0.2.RELEASE"
-
-    // jetty ?  Anyway it seems to import tomcat too so be careful
-    //compile "org.springframework.boot:spring-boot-starter-jetty"
-
-    // Database oriented bindings
-    compile   "org.springframework.boot:spring-boot-starter-jdbc:1.0.2.RELEASE"
-    compile   "org.springframework.boot:spring-boot-starter-data-rest:1.0.2.RELEASE"
 
 
 
-    //compile   "org.springframework.boot:spring-boot-starter-batch:1.0.2.RELEASE"
-
-    testCompile "org.springframework.boot:spring-boot-starter-test:1.0.2.RELEASE"
+dependencies {
+	     
+	compile("org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE")
+	compile("org.springframework:springloaded:1+")
+	
+	// compile "org.springframework.boot:spring-boot-starter-actuator:1.0.2.RELEASE"
+	
+    //testCompile "org.springframework.boot:spring-boot-starter-test:1.0.2.RELEASE"
 }
 
 

@@ -1,6 +1,10 @@
 package com.gioorgi.microservice;
 
 
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -12,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springsource.loaded.agent.SpringLoadedPreProcessor;
 
 /**
  *  Happily run with
@@ -28,6 +33,8 @@ import org.springframework.web.bind.annotation.*;
 @ComponentScan
 public class HelloWorld {
 
+	private Log logger = LogFactory.getLog(this.getClass());
+	
 	@Value("${app.version:UNKNOWN}")
 	String version;
 	
@@ -40,10 +47,15 @@ public class HelloWorld {
 	@RequestMapping("/about")
     @ResponseBody
     String about() {
-        return "The Gradle+SpringBoot+SpringLoaded 2014 JJ's Demo is here. Demo Version:"+version;
+        return "TEST The Gradle+SpringBoot+SpringLoaded_2014 JJ's_Demo_is here. Demo_Version:"+version;
     }
 
 	
+	@PostConstruct
+	public void setupSpringReloadMonitor() {
+		logger.info("\n\n\t setupSpringReloadMonitor "+about().replace(" ", "\n\t")+"\n\n");
+		SpringLoadedPreProcessor.registerGlobalPlugin(new ReloadMonitor());
+	}
 	
     public void setVersion(String version) {
 		this.version = version;
@@ -59,6 +71,9 @@ public class HelloWorld {
 //		};
 		SpringApplicationBuilder ab=new SpringApplicationBuilder(HelloWorld.class);
 //		ab.application().addListeners(sayHello);
+		
+		
+		
     	ab.run(args);
     
     }
