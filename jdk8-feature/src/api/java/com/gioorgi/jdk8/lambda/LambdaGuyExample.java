@@ -53,10 +53,8 @@ public class LambdaGuyExample {
 	    log.accept("Log gate:"+aliasGate);
 	    
 	    
-	    Comparator<String> c = (String first, String second) -> Integer.compare(first.length(), second.length());	   
-	    String[] strings=new String[] {}; 
-		Arrays.sort(strings,
-	    		c);
+
+		
 		
 		java.util.function.BiFunction<String, String, Integer> bf=
 				 (String first, String second) -> Integer.compare(first.length(), second.length());
@@ -68,9 +66,8 @@ public class LambdaGuyExample {
 		 * So you cannto assign bf and c, sorry
 		 */
 				 
-		// The new :: can be used to pass a method as a function
-		Arrays.sort(strings, String::compareToIgnoreCase);
-		 
+									 
+				 
 		
 		Runnable r2 = () -> System.out.println("Hello world two!");
 		r2.run();
@@ -141,8 +138,8 @@ public class LambdaGuyExample {
 		// Try to enlarge pool
 		List<Integer> superHuge=new ArrayList<Integer>();		
 	
+				
 		
-
 		l.forEach(superHuge::add);
 		// 3x
 		l.forEach((x)-> { superHuge.add(x); superHuge.add(x); superHuge.add(x); }); 
@@ -169,9 +166,63 @@ public class LambdaGuyExample {
 		log.accept("Serial AVERAGE:"+superHuge.stream().mapToInt((x) -> (x)).average());
 		log.accept("Pool guys:" + ForkJoinPool.commonPool().getPoolSize());
 
+	    //Comparator<String> c = (String first, String second) -> Integer.compare(first.length(), second.length());
+	    
+		
+	    parallelTest(log);
+		
+	    
+	    // actorTest(log);
+	    
+	    
+	}
+
+
+//	
+//	public static void  actor1() {
+//		
+//	}
+//
+//	
+//	private static void actorTest(Consumer<Object> log) {
+//		// Actor, yea
+//	    // Actor are registered runnable.
+//	    Function<Runnable, Integer> spawn= (r) ->
+//	    	0;
+//	    int pid=spawn.apply(LambdaGuyExample::actor1);
+//	}
+
+
+
+
+
+	private static void parallelTest(java.util.function.Consumer<Object> log) {
+		Comparator<String> comparatorLogger =(String first, String second) -> {
+	    	comparatorExternalCounter++;
+	    	//log.accept(first+" "+second);
+	    	if( comparatorExternalCounter <=5 || (comparatorExternalCounter % 3000 == 1) ) {
+				log.accept("Cmp" + first+" "+second+ " {"+comparatorExternalCounter+"}");
+			}
+	    	return first.compareToIgnoreCase(second);
+	    };
+	    
+	    // PArallel sort will no bother you with threads if you have less the 8K elements.
+	    log.accept("Ready to sort parallel test: MIN_ARRAY_SORT_GRAN =" + (1 << 13));
+	    comparatorExternalCounter=0;
+	    
+		List<String> sortTest=new ArrayList<String>();		
+		IntStream.range(1, 3*(1 << 13)).boxed().map( i -> ""+i ).forEach(sortTest::add);
+		
+		String[] hugestrings = sortTest.toArray(new String[] {});
+		Arrays.parallelSort(hugestrings, comparatorLogger);
+		//Arrays.stream(hugestrings).distinct().forEach(log);						
+		log.accept("Parallel Test Finished");
 	}
 	
-
+	
+	
+	static int comparatorExternalCounter=0;
+	
 	
 //	public interface LoggableStream<T> extends Stream<T>{
 //		default  LoggableStream<T> log(){

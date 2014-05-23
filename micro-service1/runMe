@@ -2,5 +2,6 @@
 echo Please build the class with gradle build or with the ide plugin
 echo To get reloaded
 echo JAVA_OPTS=$JAVA_OPTS
-gradle $@ bootRun 
+#gradle $@ bootRun
+java $JAVA_OPTS -jar  build/libs/micro-service1.jar
 

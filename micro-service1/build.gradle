@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'spring-boot'
-// apply plugin: 'eclipse'
-apply plugin: 'idea'
+apply plugin: 'eclipse'
+//apply plugin: 'idea'
 
 defaultTasks 'tasks'
 
@@ -76,4 +76,6 @@ task wrapper(type: Wrapper) {
 
 allprojects {
 	task hello << { task -> println "Project: $task.project.name" }
+	sourceCompatibility = 1.7
+	targetCompatibility = 1.7
 }
